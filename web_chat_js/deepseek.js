@@ -351,7 +351,7 @@ return {
   meta: {
     contractVersion: 2,
     adapterName: "DeepSeek",
-    adapterVersion: "2026.04",
+    adapterVersion: "2026.09",
     capabilities: {
       requestInjection: "dom-plan",
       responseExtraction: "sse",
@@ -403,6 +403,9 @@ return {
   decorateBubbles(ctx) {
     const root = ctx.root || document;
     const assistantSelectors = [
+      ".ds-virtual-list-visible-items .ds-markdown.ds-assistant-message-main-content",
+      ".ds-message.ds-assistant-message-main-content",
+      ".ds-markdown.ds-assistant-message-main-content",
       ".ds-virtual-list-visible-items > ._4f9bf79 > .ds-message > .ds-markdown",
       "._4f9bf79._43c05b5 > .ds-message > .ds-markdown",
       "._4f9bf79.d7dc56a8 > .ds-message > .ds-markdown",
@@ -416,7 +419,7 @@ return {
       protocol: ctx.protocol,
       userSelectors: [
         ".ds-virtual-list-visible-items > ._9663006",
-        "._9663006._2c189bc",
+        "._9663006",
       ],
       assistantSelectors,
       normalizeAssistantText(text, node) {
@@ -435,13 +438,11 @@ return {
       'textarea[placeholder^="给 DeepSeek 发送消息"]',
     ];
     const sendButtonSelectors = [
-      'div[style*="width: fit-content"] > .ds-icon-button[role="button"][aria-disabled="false"]:has(> .ds-icon > svg[viewBox="0 0 16 16"] > path[d^="M8.3125"])',
-      '.bf38813a > div:nth-child(3) > .ds-icon-button[role="button"][aria-disabled="false"]:has(> .ds-icon > svg[viewBox="0 0 16 16"] > path[d^="M8.3125"])',
-      '.ec4f5d61 > .bf38813a > div:nth-child(3) > .ds-icon-button[role="button"][aria-disabled="false"]:has(> .ds-icon > svg[viewBox="0 0 16 16"] > path[d^="M8.3125"])',
-      '.ds-icon-button.ds-icon-button--sizing-container[role="button"][aria-disabled="false"]:has(> .ds-icon > svg[viewBox="0 0 16 16"] > path[d^="M8.3125"])',
-      '.ds-icon-button[role="button"][aria-disabled="false"]:has(> .ds-icon > svg[viewBox="0 0 16 16"] > path[d^="M8.3125"])',
-      'div[style*="width: fit-content"]:has(> .ds-icon-button[role="button"][aria-disabled="false"] > .ds-icon > svg[viewBox="0 0 16 16"] > path[d^="M8.3125"])',
-      '.bf38813a > div:nth-child(3):has(> .ds-icon-button[role="button"][aria-disabled="false"] > .ds-icon > svg[viewBox="0 0 16 16"] > path[d^="M8.3125"])',
+      'div[role="button"].ds-button--primary.ds-button--filled.ds-button--circle:not(.ds-button--disabled)',
+      '.ds-button--primary.ds-button--filled.ds-button--circle[role="button"]:not(.ds-button--disabled)',
+      'div[role="button"].ds-button--primary.ds-button--filled.ds-button--circle',
+      'div.ds-button--primary.ds-button--filled.ds-button--circle',
+      '[role="button"].ds-button--primary.ds-button--filled.ds-button--circle',
       'button.ds-floating-button.ds-floating-button--icon.ds-floating-button--lg[role="button"]',
       '[role="button"][aria-label="发送"]',
       '[role="button"][aria-label="Send"]',
